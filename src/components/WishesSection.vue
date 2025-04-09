@@ -15,7 +15,7 @@
         placeholder="Your Birthday Message"
       ></textarea>
     </div>
-    <button class="btn btn-custom mb-4" @click="addWish">Add Wish</button>
+    <button class="btn btn-custom mb-4" @click="addWish">Send Wish</button>
 
     <div class="wishes-list">
       <div v-for="(wish, index) in wishes" :key="index" class="wish-card">

@@ -45,7 +45,7 @@ export default {
     return {
       isLoading: true,
       isBirthdayTime: false,
-      countdownDate: new Date("April 14, 2025 00:00:00").getTime()
+      countdownDate: new Date("April 9, 2025 00:00:00").getTime()
     };
   },
   mounted() {

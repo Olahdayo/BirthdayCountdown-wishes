@@ -71,8 +71,10 @@ export default {
     return { themeStore }
   },
   data() {
+    const birthday = new Date()
+    console.log('Birthday date initialized:', birthday)
     return {
-      birthday: new Date('2025-04-14T00:00:00'),
+      birthday,
       isBirthday: false,
       isLoading: true,
       isBlinking: false,
@@ -90,6 +92,8 @@ export default {
     }
   },
   mounted() {
+
+    console.log(this.birthday)
     this.createStars()
     setTimeout(() => {
       this.isLoading = false
@@ -100,6 +104,8 @@ export default {
       const bgAnimation = this.$refs.bgAnimation
       const screenWidth = window.innerWidth
       const screenHeight = window.innerHeight
+
+      console.log(this.birthday)
       
       for (let i = 0; i < 100; i++) {
         const star = document.createElement('div')
