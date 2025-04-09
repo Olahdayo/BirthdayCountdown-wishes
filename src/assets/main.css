@@ -9,6 +9,15 @@
   --card-bg: rgba(10, 10, 32, 0.8);
   --input-bg: rgba(255, 255, 255, 0.1);
   --border-color: rgba(255, 255, 255, 0.2);
+
+  /* Landing Page color */
+  --Landigpage-primary-color: #FF4D6D;
+    --Landingpage-secondary-color: #7B2CBF;
+    --accent-color: #FFC6D3;
+    --dark-color: #1E1E24;
+    --light-color: #F5F5F5;
+    --success-color: #4CAF50;
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -24,6 +33,12 @@ body {
   overflow-x: hidden;
   text-align: center;
   position: relative;
+
+  /* Landing page */
+    font-family: var(--font-main);
+    line-height: 1.6;
+    color: var(--dark-color);
+    background-color: var(--light-color);
 }
 
 .time-display {
@@ -364,6 +379,24 @@ body.light-theme .message-input:focus {
   50% { opacity: 1; }
 }
 
+/* Landing page styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.active {
+  display: flex;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .countdown-unit {
@@ -391,5 +424,45 @@ body.light-theme .message-input:focus {
   
   .song-info {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+      display: none;
+  }
+
+  .hero {
+      flex-direction: column;
+      text-align: center;
+      padding-top: 4rem;
+  }
+
+  .hero-content, .hero-image {
+      width: 100%;
+  }
+
+  .hero-content {
+      padding-right: 0;
+      margin-bottom: 2rem;
+  }
+
+  .features-grid {
+      grid-template-columns: 1fr;
+  }
+
+  .steps {
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+  }
+
+  .step {
+      width: 100%;
+      max-width: 300px;
+  }
+
+  .footer-section {
+      width: 100%;
   }
 }
