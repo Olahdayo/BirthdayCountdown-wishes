@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import BirthdayPage from '@/views/BirthdayPage.vue'
+import BirthdayCountdown from '@/components/BirthdayCountdown.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: BirthdayPage
+    component: BirthdayCountdown
   }
 ]
 

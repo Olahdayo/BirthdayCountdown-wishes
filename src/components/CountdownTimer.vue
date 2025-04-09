@@ -44,8 +44,9 @@ export default {
   methods: {
     startCountdown() {
       const updateCountdown = () => {
-        const now = new Date()
-        const distance = this.birthday - now
+        const now = new Date().getTime()
+        const birthdayTime = this.birthday.getTime()
+        const distance = birthdayTime - now
 
         if (distance <= 0) {
           this.countdown = {
@@ -73,27 +74,6 @@ export default {
 }
 </script>
 
-<style scoped>
-.countdown-container {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin: 2rem 0;
-  background: red;
-}
-
-.countdown-unit {
-  text-align: center;
-  color: red;
-}
-
-.countdown-value {
-  font-size: 3rem;
-  font-weight: bold;
-}
-
-.countdown-label {
-  font-size: 1rem;
-  text-transform: uppercase;
-}
+<style>
+/* Component-specific styles only */
 </style> 

@@ -1,37 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Share+Tech+Mono&display=swap');
 
 :root {
-      --primary-color: #00ffcc;
-      --secondary-color: #ff3399;
-      --accent-color: #ffcc00;
-      --bg-color: #0a0a20;
-      --text-color: #ffffff;
-    }
-
-  body {
-      background-color: var(--bg-color);
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(0, 255, 204, 0.05) 0%, transparent 20%),
-        radial-gradient(circle at 80% 10%, rgba(255, 51, 153, 0.05) 0%, transparent 20%);
-      color: var(--text-color);
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      min-height: 100vh;
-      overflow-x: hidden;
-      text-align: center;
-      position: relative;
-    }
-
-#app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  --primary-color: #00ffcc;
+  --secondary-color: #ff3399;
+  --accent-color: #ffcc00;
+  --bg-color: #0a0a20;
+  --text-color: #ffffff;
+  --card-bg: rgba(10, 10, 32, 0.8);
+  --input-bg: rgba(255, 255, 255, 0.1);
+  --border-color: rgba(255, 255, 255, 0.2);
 }
 
-.container-fluid {
-  padding: 2rem;
+body {
+  background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(0, 255, 204, 0.05) 0%, transparent 20%),
+    radial-gradient(circle at 80% 10%, rgba(255, 51, 153, 0.05) 0%, transparent 20%),
+    linear-gradient(135deg, #0a0a20 0%, #1a1a40 100%);
+  color: var(--text-color);
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  text-align: center;
+  position: relative;
 }
 
 .time-display {
@@ -66,6 +58,7 @@
   max-height: 400px;
   object-fit: cover;
   width: 100%;
+  border-radius: 12px;
 }
 
 .birthday-message {
@@ -97,7 +90,7 @@
 .countdown-unit {
   display: flex;
   flex-direction: column;
-  background-color: rgba(10, 10, 32, 0.8);
+  background-color: var(--card-bg);
   padding: 1rem;
   border-radius: 12px;
   min-width: 100px;
@@ -175,25 +168,29 @@
 }
 
 .theme-toggle {
-  position: absolute;
+  position: fixed;
   top: 20px;
   right: 20px;
+  z-index: 1000;
   background: none;
   border: none;
   color: var(--text-color);
-  font-size: 1.5rem;
+  font-size: 24px;
   cursor: pointer;
-  z-index: 10;
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
 }
 
 .message-input {
   max-width: 500px;
   margin: 2rem auto;
-  background-color: rgba(10, 10, 32, 0.7);
-  border: 1px solid var(--primary-color);
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-color);
   color: var(--text-color);
   border-radius: 8px;
-
 }
 
 .message-input:focus {
@@ -223,7 +220,7 @@
 .wishes-section {
   max-width: 800px;
   margin: 3rem auto;
-  background-color: rgba(10, 10, 32, 0.5);
+  background-color: var(--card-bg);
   border-radius: 12px;
   padding: 1.5rem;
 }
@@ -247,13 +244,82 @@
   color: var(--text-color);
 }
 
+/* Audio Player */
+.audio-player {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--card-bg);
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 100;
+}
+
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.volume-slider {
+  width: 100px;
+  height: 4px;
+  -webkit-appearance: none;
+  background: var(--input-bg);
+  border-radius: 2px;
+  outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.song-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.song-title {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.song-artist {
+  font-size: 0.8rem;
+  color: var(--primary-color);
+}
+
+/* Confetti Canvas */
+.confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+
 /* Light theme styles */
 body.light-theme {
   --bg-color: #f0f0f0;
   --text-color: #333;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --input-bg: rgba(0, 0, 0, 0.05);
+  --border-color: rgba(0, 0, 0, 0.1);
   background-image: 
     radial-gradient(circle at 10% 20%, rgba(0, 255, 204, 0.1) 0%, transparent 20%),
-    radial-gradient(circle at 80% 10%, rgba(255, 51, 153, 0.1) 0%, transparent 20%);
+    radial-gradient(circle at 80% 10%, rgba(255, 51, 153, 0.1) 0%, transparent 20%),
+    linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
 }
 
 body.light-theme .countdown-unit {
@@ -274,17 +340,28 @@ body.light-theme .message-input:focus {
   background-color: rgba(255, 255, 255, 0.9);
 }
 
-/* Dark and Light Theme Classes */
-.light-theme {
-  --bg-color: #f0f8ff;
-  --text-color: #333344;
-  --primary-color: #009988;
-  --secondary-color: #ff3366;
+/* Fancy background animation */
+.bg-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
-.blinking-dot {
-  font-size: 24px;
-  animation: blink 1s step-start infinite;
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--text-color);
+  border-radius: 50%;
+  animation: twinkle 5s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
 }
 
 /* Responsive adjustments */
@@ -301,29 +378,18 @@ body.light-theme .message-input:focus {
   .birthday-message {
     width: 95%;
   }
-}
-
-/* Fancy background animation */
-.bg-animation {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  opacity: 0.3;
-}
-
-.star {
-  position: absolute;
-  background-color: var(--primary-color);
-  width: 2px;
-  height: 2px;
-  border-radius: 50%;
-  animation: twinkle 5s infinite;
-}
-
-@keyframes twinkle {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 1; transform: scale(1.5); }
+  
+  .audio-player {
+    bottom: 10px;
+    right: 10px;
+    padding: 0.7rem;
+  }
+  
+  .volume-slider {
+    width: 60px;
+  }
+  
+  .song-info {
+    display: none;
+  }
 }
