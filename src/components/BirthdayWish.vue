@@ -29,7 +29,14 @@
 
     <div class="wishes-list">
       <div v-for="(wish, index) in wishes" :key="index" class="wish-card">
-        <h5>From: {{ wish.name }}</h5>
+        <div class="wish-header">
+          <div class="wisher-name">
+            {{ wish.sender_name || wish.senderName || "Anonymous" }}
+          </div>
+          <div class="wish-date">
+            {{ formatDate(wish.created_at || wish.date) }}
+          </div>
+        </div>
         <p>{{ wish.message }}</p>
       </div>
     </div>
@@ -62,6 +69,21 @@ export default {
     };
   },
   methods: {
+    formatDate(date) {
+      if (!date) return "No date";
+      try {
+        return new Date(date).toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      } catch (error) {
+        console.error("Error formatting date:", error);
+        return "Invalid date";
+      }
+    },
     async addWish() {
       if (!this.newWish.message.trim()) return;
 
@@ -134,11 +156,34 @@ export default {
   cursor: pointer;
 }
 
+.wish-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.wisher-name {
+  font-weight: 600;
+  color: #fff;
+}
+
+.wish-date {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .wish-card {
   background: rgba(255, 255, 255, 0.1);
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1rem;
+}
+
+.wish-card p {
+  margin: 0;
+  color: #fff;
+  line-height: 1.5;
 }
 
 .alert-danger {

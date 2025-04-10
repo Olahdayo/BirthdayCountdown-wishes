@@ -230,8 +230,12 @@
           <div class="wishes-list">
             <div v-for="wish in wishes" :key="wish.id" class="wish-card">
               <div class="wish-header">
-                <div class="wisher-name">{{ wish.senderName }}</div>
-                <div class="wish-date">{{ formatDate(wish.date) }}</div>
+                <div class="wisher-name">
+                  {{ wish.sender_name || wish.senderName || "Anonymous" }}
+                </div>
+                <div class="wish-date">
+                  {{ formatDate(wish.created_at || wish.date) }}
+                </div>
               </div>
               <div class="wish-message">
                 {{ wish.message }}
@@ -727,11 +731,19 @@ export default {
     };
 
     const formatDate = (date) => {
-      return new Date(date).toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-      });
+      if (!date) return "No date";
+      try {
+        return new Date(date).toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      } catch (error) {
+        console.error("Error formatting date:", error);
+        return "Invalid date";
+      }
     };
 
     const toggleFavorite = async (wish) => {
