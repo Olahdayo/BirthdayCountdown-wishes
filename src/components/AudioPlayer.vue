@@ -1,35 +1,35 @@
 <template>
   <div class="audio-player">
-    <audio 
-      ref="audioPlayer" 
-      :src="musicSrc" 
+    <audio
+      ref="audioPlayer"
+      :src="musicSrc"
       loop
       @timeupdate="onTimeUpdate"
       @loadedmetadata="onLoadedMetadata"
       @ended="onEnded"
     ></audio>
-    
+
     <div class="controls">
-      <button 
-        class="btn btn-custom" 
+      <button
+        class="btn btn-custom"
         @click="togglePlay"
         :title="isPlaying ? 'Pause Music' : 'Play Music'"
       >
         <i :class="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
       </button>
-      
+
       <div class="volume-control">
         <i :class="volumeIcon"></i>
-        <input 
-          type="range" 
-          min="0" 
-          max="100" 
-          v-model="volume" 
+        <input
+          type="range"
+          min="0"
+          max="100"
+          v-model="volume"
           @input="onVolumeChange"
           class="volume-slider"
-        >
+        />
       </div>
-      
+
       <div class="song-info">
         <span class="song-title">Happy Birthday</span>
         <span class="song-artist">Birthday Song</span>
@@ -40,51 +40,51 @@
 
 <script>
 export default {
-  name: 'AudioPlayer',
+  name: "AudioPlayer",
   data() {
     return {
       isPlaying: false,
       volume: 50,
-      musicSrc: '/audio/happy-birthday.mp3',
+      musicSrc: "/audio/happy-birthday.mp3",
       currentTime: 0,
-      duration: 0
-    }
+      duration: 0,
+    };
   },
   computed: {
     volumeIcon() {
-      if (this.volume === 0) return 'fas fa-volume-mute'
-      if (this.volume < 30) return 'fas fa-volume-down'
-      return 'fas fa-volume-up'
-    }
+      if (this.volume === 0) return "fas fa-volume-mute";
+      if (this.volume < 30) return "fas fa-volume-down";
+      return "fas fa-volume-up";
+    },
   },
   methods: {
     togglePlay() {
       if (this.isPlaying) {
-        this.$refs.audioPlayer.pause()
+        this.$refs.audioPlayer.pause();
       } else {
-        this.$refs.audioPlayer.play()
+        this.$refs.audioPlayer.play();
       }
-      this.isPlaying = !this.isPlaying
+      this.isPlaying = !this.isPlaying;
     },
     onVolumeChange() {
-      this.$refs.audioPlayer.volume = this.volume / 100
+      this.$refs.audioPlayer.volume = this.volume / 100;
     },
     onTimeUpdate() {
-      this.currentTime = this.$refs.audioPlayer.currentTime
+      this.currentTime = this.$refs.audioPlayer.currentTime;
     },
     onLoadedMetadata() {
-      this.duration = this.$refs.audioPlayer.duration
-      this.$refs.audioPlayer.volume = this.volume / 100
+      this.duration = this.$refs.audioPlayer.duration;
+      this.$refs.audioPlayer.volume = this.volume / 100;
     },
     onEnded() {
-      this.isPlaying = false
-    }
+      this.isPlaying = false;
+    },
   },
   mounted() {
     // Try to load the audio file
-    this.$refs.audioPlayer.load()
-  }
-}
+    this.$refs.audioPlayer.load();
+  },
+};
 </script>
 
 <style scoped>
@@ -138,6 +138,8 @@ export default {
   width: 100px;
   height: 4px;
   -webkit-appearance: none;
+  appearance: none;
+  background-clip: none;
   background: var(--primary-color);
   border-radius: 2px;
   outline: none;
@@ -177,4 +179,4 @@ export default {
   font-size: 0.7rem;
   opacity: 0.8;
 }
-</style> 
+</style>

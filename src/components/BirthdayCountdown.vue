@@ -205,6 +205,7 @@ export default {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: gradient 3s ease infinite;
 }
