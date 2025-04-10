@@ -149,7 +149,7 @@ export default {
   },
 };
 </script>
-
+<!-- 
 <style scoped>
 .container-fluid {
   min-height: 100vh;
@@ -198,7 +198,7 @@ export default {
   margin: 0 auto;
 }
 
-.headline {
+/* .headline {
   font-size: 3rem;
   margin-bottom: 2rem;
   font-weight: bold;
@@ -208,7 +208,7 @@ export default {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: gradient 3s ease infinite;
-}
+} */
 
 @keyframes gradient {
   0% {
@@ -244,6 +244,8 @@ export default {
   color: #ff6b6b;
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
   font-weight: 500;
+  box-shadow: 0 0 15px rgba(255, 51, 153, 0.3);
+
 }
 
 .blinking-dot {
@@ -341,4 +343,4 @@ export default {
     font-size: 1rem;
   }
 }
-</style>
+
