@@ -34,24 +34,24 @@
   }
   
   .btn-primary {
-    background-color: var(--primary-color);
+    background-color: var(--landing-primary-color);
     color: white;
   }
   
   .btn-primary:hover {
-    background-color: #ff3057;
+    background-color: var(--landing-secondary-color);
     transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(255, 77, 109, 0.3);
+    box-shadow: 0 4px 8px rgba(123, 44, 191, 0.3);
   }
   
   .btn-outline {
     background-color: transparent;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+    color: var(--landing-primary-color);
+    border: 2px solid var(--landing-primary-color);
   }
   
   .btn-outline:hover {
-    background-color: var(--primary-color);
+    background-color: var(--landing-primary-color);
     color: white;
   }
   </style>

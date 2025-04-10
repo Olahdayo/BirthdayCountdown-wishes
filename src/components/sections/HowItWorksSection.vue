@@ -45,7 +45,7 @@
   <style scoped>
   .how-it-works {
     padding: 5rem 5%;
-    background-color: var(--light-color);
+    background-color: var(--landing-light-color);
   }
   
   .steps {
@@ -66,7 +66,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: var(--primary-color);
+    background-color: var(--landing-primary-color);
     color: white;
     display: flex;
     justify-content: center;
@@ -78,7 +78,23 @@
   
   .step h3 {
     margin-bottom: 1rem;
-    color: var(--dark-color);
+    color: #333;
+  }
+  
+  .section-title h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .section-title p {
+    color: #333;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .step p {
+    color: #333;
   }
   
   @media (max-width: 768px) {

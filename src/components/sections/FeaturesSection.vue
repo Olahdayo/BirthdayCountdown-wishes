@@ -76,14 +76,23 @@
   
   .section-title h2 {
     font-size: 2.5rem;
-    color: var(--dark-color);
+    color: #333;
     margin-bottom: 1rem;
+    font-weight: 600;
   }
   
   .section-title p {
     color: #666;
     max-width: 600px;
     margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-weight: 400;
+    border: 1px solid red;
+  }
+
+  .section-title description {
+    color: black;
   }
   
   .features-grid {
@@ -99,6 +108,15 @@
   }
   
   @media (max-width: 768px) {
+    .section-title h2 {
+      font-size: 2rem;
+    }
+    
+    .section-title p {
+      font-size: 1rem;
+      padding: 0 1rem;
+    }
+    
     .features-grid {
       grid-template-columns: 1fr;
     }

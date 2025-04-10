@@ -43,7 +43,7 @@
   export default {
     name: 'ExampleSection',
     components: {
-      AppButton
+      'app-button': AppButton
     },
     data() {
       return {
@@ -86,105 +86,90 @@
   .example-card {
     width: 80%;
     max-width: 800px;
-    background-color: var(--light-color);
+    background-color: var(--landing-light-color);
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 15px 30px rgba(0,0,0,0); /* Wanna ajust the box shadow color  */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
     padding: 5rem 5%;
     background-color: white;
     text-align: center;
-}
+  }
 
-.example-preview {
-  margin-top: 3rem;
-  display: flex;
-  justify-content: center;
-}
+  .example-header {
+    background: linear-gradient(to right, var(--landing-primary-color), var(--landing-secondary-color));
+    padding: 2rem;
+    color: white;
+    text-align: center;
+  }
 
-.example-card {
-  width: 80%;
-  max-width: 800px;
-  background-color: var(--light-color);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-}
+  .example-header h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
 
-.example-header {
-  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-  padding: 2rem;
-  color: white;
-  text-align: center;
-}
+  .example-countdown {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
 
-.example-header h3 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
+  .countdown-item {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    min-width: 70px;
+  }
 
-.example-countdown {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin: 1rem 0;
-}
+  .countdown-item span {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
 
-.countdown-item {
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  min-width: 70px;
-}
+  .example-body {
+    padding: 2rem;
+  }
 
-.countdown-item span {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
+  .example-carousel {
+    background-color: var(--landing-dark-color);
+    height: 200px;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
 
-.example-body {
-  padding: 2rem;
-}
+  .wishes-form {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 5px;
+  }
 
-.example-carousel {
-  background-color: var(--dark-color);
-  height: 200px;
-  margin-bottom: 1.5rem;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
+  .form-group {
+    margin-bottom: 1rem;
+  }
 
-.wishes-form {
-  margin-top: 1.5rem;
-  padding: 1.5rem;
-  background-color: white;
-  border-radius: 5px;
-}
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    text-align: left;
+  }
 
-.form-group {
-  margin-bottom: 1rem;
-}
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: var(--landing-font-main);
+  }
 
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  text-align: left;
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-family: var(--font-main);
-}
-
-.form-group textarea {
-  min-height: 100px;
-  resize: vertical;
-}
+  .form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
 </style>

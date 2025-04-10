@@ -6,7 +6,7 @@
         <app-button @click="$emit('open-modal', 'signup')" variant="primary">Get Started</app-button>
       </div>
       <div class="hero-image">
-        <img src="/api/placeholder/500/350" alt="Birthday celebration preview">
+        <img src="https://placehold.co/500x350" alt="Birthday celebration preview">
       </div>
     </section>
   </template>
@@ -27,7 +27,9 @@
     height: 100vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, rgba(255, 77, 109, 0.1), rgba(123, 44, 191, 0.1));
+    /* background: linear-gradient(135deg, rgba(255, 77, 109, 0.1), rgba(123, 44, 191, 0.1)); */
+    background: #F5F5F5;
+    background-color: #FFC6D3;
     padding: 0 5%;
     margin-top: 60px;
   }
@@ -35,6 +37,7 @@
   .hero-content {
     width: 50%;
     padding-right: 2rem;
+    text-align: left;
   }
   
   .hero-image {
@@ -54,17 +57,19 @@
     font-size: 3.5rem;
     margin-bottom: 1.5rem;
     line-height: 1.2;
-    color: var(--dark-color);
+    color: var(--landing-dark-color);
+    text-align: left;
   }
   
   .hero-content h1 span {
-    color: var(--primary-color);
+    color: var(--landing-primary-color);
   }
   
   .hero-content p {
     font-size: 1.2rem;
     margin-bottom: 2rem;
-    color: #555;
+    color: #333;
+    text-align: left;
   }
   
   @media (max-width: 768px) {
@@ -81,6 +86,12 @@
     .hero-content {
       padding-right: 0;
       margin-bottom: 2rem;
+      text-align: center;
+    }
+  
+    .hero-content h1,
+    .hero-content p {
+      text-align: center;
     }
   }
   </style>

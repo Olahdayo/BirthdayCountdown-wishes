@@ -5,6 +5,7 @@
     <how-it-works-section />
     <example-section />
     <cta-section @open-modal="openModal" />
+    <app-footer />
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import FeaturesSection from '../components/sections/FeaturesSection.vue';
 import HowItWorksSection from '../components/sections/HowItWorksSection.vue';
 import ExampleSection from '../components/sections/ExampleSection.vue';
 import CtaSection from '../components/sections/CtaSection.vue';
+import AppFooter from '../components/ui/AppFooter.vue';
 
 export default {
   name: 'HomeView',
@@ -22,7 +24,8 @@ export default {
     FeaturesSection,
     HowItWorksSection,
     ExampleSection,
-    CtaSection
+    CtaSection,
+    AppFooter
   },
   methods: {
     openModal(tab) {

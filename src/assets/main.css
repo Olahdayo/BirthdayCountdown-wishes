@@ -1,63 +1,117 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Share+Tech+Mono&display=swap');
 
 :root {
-  --primary-color: #00ffcc;
-  --secondary-color: #ff3399;
-  --accent-color: #ffcc00;
-  --bg-color: #0a0a20;
-  --text-color: #ffffff;
-  --card-bg: rgba(10, 10, 32, 0.8);
-  --input-bg: rgba(255, 255, 255, 0.1);
-  --border-color: rgba(255, 255, 255, 0.2);
+  /* Birthday Countdown Theme */
+  --birthday-primary-color: #00ffcc;
+  --birthday-secondary-color: #ff3399;
+  --birthday-accent-color: #ffcc00;
+  --birthday-bg-color: #0a0a20;
+  --birthday-text-color: #ffffff;
+  --birthday-card-bg: rgba(10, 10, 32, 0.8);
+  --birthday-input-bg: rgba(255, 255, 255, 0.1);
+  --birthday-border-color: rgba(255, 255, 255, 0.2);
 
-  /* Landing Page color */
-  --Landigpage-primary-color: #FF4D6D;
-    --Landingpage-secondary-color: #7B2CBF;
-    --accent-color: #FFC6D3;
-    --dark-color: #1E1E24;
-    --light-color: #F5F5F5;
-    --success-color: #4CAF50;
-    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Landing Page Theme */
+  --landing-primary-color: #FF4D6D;
+  --landing-secondary-color: #7B2CBF;
+  --landing-accent-color: #FFC6D3;
+  --landing-dark-color: #1E1E24;
+  --landing-light-color: #F5F5F5;
+  --landing-success-color: #4CAF50;
+  --landing-font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body {
-  background-color: var(--bg-color);
+/* Birthday Theme Styles */
+body.birthday-theme {
+  background-color: var(--birthday-bg-color);
   background-image: 
     radial-gradient(circle at 10% 20%, rgba(0, 255, 204, 0.05) 0%, transparent 20%),
     radial-gradient(circle at 80% 10%, rgba(255, 51, 153, 0.05) 0%, transparent 20%),
     linear-gradient(135deg, #0a0a20 0%, #1a1a40 100%);
-  color: var(--text-color);
+  color: var(--birthday-text-color);
   font-family: 'Poppins', sans-serif;
+}
+
+.birthday-theme .time-display {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(2rem, 8vw, 8rem);
+  cursor: pointer;
+  user-select: none;
+  color: var(--birthday-primary-color);
+  text-shadow: 0 0 10px rgba(0, 255, 204, 0.7);
+  margin-top: 4vh;
+}
+
+.birthday-theme .countdown-unit {
+  background-color: var(--birthday-card-bg);
+  border: 1px solid rgba(0, 255, 204, 0.3);
+}
+
+.birthday-theme .countdown-value {
+  color: var(--birthday-accent-color);
+}
+
+.birthday-theme .countdown-label {
+  color: var(--birthday-primary-color);
+}
+
+.birthday-theme .birthday-message {
+  color: var(--birthday-text-color);
+  background-color: rgba(255, 51, 153, 0.1);
+  border-left: 4px solid var(--birthday-secondary-color);
+}
+
+/* Landing Page Theme Styles */
+body.landing-theme {
+  font-family: var(--landing-font-main);
+  line-height: 1.6;
+  color: var(--landing-dark-color);
+  background-color: var(--landing-light-color);
+}
+
+/* Common Styles */
+body {
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
   text-align: center;
   position: relative;
-
-  /* Landing page */
-    font-family: var(--font-main);
-    line-height: 1.6;
-    color: var(--dark-color);
-    background-color: var(--light-color);
 }
 
-.time-display {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: clamp(2rem, 8vw, 8rem);
-  cursor: pointer;
-  user-select: none;
-  color: var(--primary-color);
-  text-shadow: 0 0 10px rgba(0, 255, 204, 0.7);
-  margin-top: 4vh;
-}
-
-.blinking {
-  animation: blink 1.5s ease-in-out infinite;
-}
-
+/* Animations */
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.3; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Light theme styles */
+body.light-theme.birthday-theme {
+  --birthday-bg-color: #f0f0f0;
+  --birthday-text-color: #333;
+  --birthday-card-bg: rgba(255, 255, 255, 0.8);
+  --birthday-input-bg: rgba(0, 0, 0, 0.05);
+  --birthday-border-color: rgba(0, 0, 0, 0.1);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(0, 255, 204, 0.1) 0%, transparent 20%),
+    radial-gradient(circle at 80% 10%, rgba(255, 51, 153, 0.1) 0%, transparent 20%),
+    linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container-fluid {
+    padding: 1rem;
+  }
 }
 
 .carousel-container {
@@ -74,57 +128,6 @@ body {
   object-fit: cover;
   width: 100%;
   border-radius: 12px;
-}
-
-.birthday-message {
-  color: var(--text-color);
-  font-size: clamp(1.2rem, 3vw, 1.8rem);
-  margin: 2rem auto;
-  max-width: 800px;
-  padding: 1rem;
-  background-color: rgba(255, 51, 153, 0.1);
-  border-left: 4px solid var(--secondary-color);
-  border-radius: 8px;
-  animation: fadeIn 3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.countdown-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  margin: 5vh auto;
-  max-width: 800px;
-}
-
-.countdown-unit {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--card-bg);
-  padding: 1rem;
-  border-radius: 12px;
-  min-width: 100px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(0, 255, 204, 0.3);
-}
-
-.countdown-value {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: clamp(1.5rem, 4vw, 3rem);
-  color: var(--accent-color);
-  font-weight: bold;
-}
-
-.countdown-label {
-  font-size: 0.9rem;
-  color: var(--primary-color);
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 .loading {
@@ -175,11 +178,6 @@ body {
   font-size: 2rem;
   margin: 0 0.5rem;
   animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
 }
 
 .theme-toggle {
@@ -322,37 +320,6 @@ body {
   height: 100%;
   pointer-events: none;
   z-index: 999;
-}
-
-/* Light theme styles */
-body.light-theme {
-  --bg-color: #f0f0f0;
-  --text-color: #333;
-  --card-bg: rgba(255, 255, 255, 0.8);
-  --input-bg: rgba(0, 0, 0, 0.05);
-  --border-color: rgba(0, 0, 0, 0.1);
-  background-image: 
-    radial-gradient(circle at 10% 20%, rgba(0, 255, 204, 0.1) 0%, transparent 20%),
-    radial-gradient(circle at 80% 10%, rgba(255, 51, 153, 0.1) 0%, transparent 20%),
-    linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
-}
-
-body.light-theme .countdown-unit {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 255, 204, 0.5);
-}
-
-body.light-theme .wish-card {
-  background: rgba(0, 255, 204, 0.1);
-}
-
-body.light-theme .message-input {
-  background-color: rgba(255, 255, 255, 0.7);
-  color: var(--bg-color);
-}
-
-body.light-theme .message-input:focus {
-  background-color: rgba(255, 255, 255, 0.9);
 }
 
 /* Fancy background animation */

@@ -20,7 +20,7 @@
   <style scoped>
   .cta {
     padding: 5rem 5%;
-    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(to right, var(--landing-primary-color), var(--landing-secondary-color));
     color: white;
     text-align: center;
   }
@@ -39,13 +39,13 @@
   
   .cta .btn {
     background-color: white;
-    color: var(--primary-color);
+    color: var(--landing-primary-color);
     font-size: 1.2rem;
     padding: 0.75rem 2rem;
   }
   
   .cta .btn:hover {
-    background-color: var(--light-color);
+    background-color: var(--landing-light-color);
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   }

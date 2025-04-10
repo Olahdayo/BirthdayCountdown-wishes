@@ -59,7 +59,7 @@ export default {
     return { themeStore }
   },
   data() {
-    const birthday = new Date("2025-04-08T15:54:00")
+    const birthday = new Date("2025-04-14T15:54:00")
     console.log('Birthday date initialized:', birthday.toISOString())
     return {
       birthday,
@@ -113,6 +113,171 @@ export default {
 }
 </script>
 
-<style>
-/* Component-specific styles only */
+<style scoped>
+.container-fluid {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.bg-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.star {
+  position: absolute;
+  background-color: #ff6b6b;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  animation: twinkle 5s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+.main-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+  color: #ffffff;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.headline {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient 3s ease infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.birthday-emoji {
+  margin: 0 0.5rem;
+  animation: float 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+#birthdayDate {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #ff6b6b;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  font-weight: 500;
+}
+
+.blinking-dot {
+  animation: blink 1s infinite;
+  color: #ff6b6b;
+  margin: 0 0.2rem;
+}
+
+@keyframes blink {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.time-display {
+  font-size: 4rem;
+  margin: 2rem 0;
+  cursor: pointer;
+  color: #ff6b6b;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.time-display:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 15px rgba(255, 107, 107, 0.7);
+}
+
+.blinking {
+  animation: blink 1s infinite;
+}
+
+.blinking-note {
+  font-size: 1rem;
+  opacity: 0.7;
+  color: #ff6b6b;
+  margin-top: 0.5rem;
+}
+
+.birthday-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.birthday-message {
+  margin-top: 2rem;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+}
+
+.birthday-message h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  color: #ff6b6b;
+}
+
+.birthday-message p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .headline {
+    font-size: 2rem;
+  }
+  
+  .time-display {
+    font-size: 3rem;
+  }
+  
+  .birthday-message h2 {
+    font-size: 2rem;
+  }
+  
+  .birthday-message p {
+    font-size: 1rem;
+  }
+}
 </style>

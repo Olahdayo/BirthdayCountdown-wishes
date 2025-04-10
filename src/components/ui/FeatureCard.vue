@@ -44,12 +44,17 @@
   
   .feature-icon {
     font-size: 2.5rem;
-    color: var(--primary-color);
+    color: var(--landing-primary-color);
     margin-bottom: 1.5rem;
   }
   
   .feature-card h3 {
     margin-bottom: 1rem;
-    color: var(--dark-color);
+    color: var(--landing-dark-color);
+  }
+  
+  .feature-card p {
+    color: #666;
+    border: 1px solid red;
   }
   </style>

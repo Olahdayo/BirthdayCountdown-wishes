@@ -42,7 +42,7 @@
   
   <style scoped>
   footer {
-    background-color: var(--dark-color);
+    background-color: #1a1a1a;
     color: white;
     padding: 3rem 5%;
   }
@@ -51,6 +51,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    text-align: left;
   }
   
   .footer-section {
@@ -60,15 +61,17 @@
   
   .footer-section h3 {
     margin-bottom: 1.5rem;
-    color: var(--accent-color);
+    color: #FFC6D3;
   }
   
   .footer-links {
     list-style: none;
+    padding-left: 0;
   }
   
   .footer-links li {
     margin-bottom: 0.5rem;
+    color: white;
   }
   
   .footer-links a {
@@ -78,7 +81,7 @@
   }
   
   .footer-links a:hover {
-    color: var(--primary-color);
+    color: var(--landing-primary-color);
   }
   
   .social-links {
@@ -100,7 +103,7 @@
   }
   
   .social-links a:hover {
-    background-color: var(--primary-color);
+    background-color: var(--landing-primary-color);
     transform: translateY(-3px);
   }
   
@@ -109,6 +112,7 @@
     padding-top: 2rem;
     margin-top: 2rem;
     border-top: 1px solid rgba(255,255,255,0.1);
+    color: white;
   }
   
   @media (max-width: 768px) {
