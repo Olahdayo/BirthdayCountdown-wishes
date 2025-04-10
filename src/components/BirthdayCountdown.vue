@@ -88,7 +88,7 @@ export default {
     console.log(this.birthday)
     this.createStars()
     // Initialize confetti canvas
-    if (this.$refs.confettiCanvas) {
+    if (this.$refs.confettiCanvas && this.$refs.confettiCanvas.initializeCanvas) {
       this.$refs.confettiCanvas.initializeCanvas()
     }
   },
