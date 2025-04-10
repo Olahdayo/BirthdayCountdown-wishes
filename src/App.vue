@@ -5,7 +5,7 @@
   </div>
   <div v-else class="app-container">
     <AppNavbar v-if="!isDashboard && !isBirthdayCountdown" @open-modal="openModal" />
-    <ThemeToggle v-if="isDashboard" />
+    <ThemeToggle v-if="isBirthdayCountdown" />
     <AudioPlayer v-if="isBirthdayCountdown" />
     <AppModal 
       :is-active="isModalActive" 

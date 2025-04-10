@@ -259,6 +259,11 @@
             });
 
             if (response.status === 'success') {
+              // Save birthday date to localStorage
+              localStorage.setItem('birthdayDate', this.signupForm.birthday);
+              // Save name to localStorage
+              localStorage.setItem('userName', this.signupForm.name);
+              
               this.signupSuccess = true;
               setTimeout(() => {
                 this.signupSuccess = false;

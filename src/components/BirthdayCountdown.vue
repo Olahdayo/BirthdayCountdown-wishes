@@ -61,6 +61,16 @@ export default {
   data() {
     const birthday = new Date("2025-04-14T15:54:00")
     console.log('Birthday date initialized:', birthday.toISOString())
+    
+    // Load photos from localStorage
+    const uniqueRoute = localStorage.getItem('uniqueRoute');
+    const savedPhotos = localStorage.getItem(`photos_${uniqueRoute}`);
+    const birthdayImages = savedPhotos ? JSON.parse(savedPhotos).map(photo => ({ src: photo, alt: 'Birthday photo' })) : [
+      { src: '/images/birthday-1.jpg', alt: 'Happy Esther Day' },
+      { src: '/images/birthday-2.jpg', alt: 'Birthday Smiles' },
+      { src: '/images/birthday-3.jpg', alt: 'Best Moments' }
+    ];
+
     return {
       birthday,
       isBirthday: false,
@@ -71,20 +81,22 @@ export default {
           message: 'Happy Birthday Esther! You bring so much joy to everyone around you!'
         }
       ],
-      birthdayImages: [
-        { src: '/images/birthday-1.jpg', alt: 'Happy Esther Day' },
-        { src: '/images/birthday-2.jpg', alt: 'Birthday Smiles' },
-        { src: '/images/birthday-3.jpg', alt: 'Best Moments' }
-      ]
+      birthdayImages
     }
   },
   mounted() {
     console.log(this.birthday)
     this.createStars()
+    // Initialize confetti canvas
+    if (this.$refs.confettiCanvas) {
+      this.$refs.confettiCanvas.initializeCanvas()
+    }
   },
   methods: {
     createStars() {
       const bgAnimation = this.$refs.bgAnimation
+      if (!bgAnimation) return;
+
       const screenWidth = window.innerWidth
       const screenHeight = window.innerHeight
 
@@ -101,7 +113,9 @@ export default {
     },
     onBirthdayReached() {
       this.isBirthday = true
-      this.$refs.confettiCanvas.launchConfetti()
+      if (this.$refs.confettiCanvas) {
+        this.$refs.confettiCanvas.launchConfetti()
+      }
     },
     toggleBlinking() {
       this.isBlinking = !this.isBlinking

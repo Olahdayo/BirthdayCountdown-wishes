@@ -12,23 +12,37 @@
         </div>
       </div>
       <div class="sidebar-menu">
-        <a href="#" class="menu-item active" @click="activeSection = 'dashboard'">
+        <a href="#" 
+           class="menu-item" 
+           :class="{ active: activeSection === 'dashboard' }" 
+           @click="activeSection = 'dashboard'">
           <i class="fas fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
-        <a href="#" class="menu-item" @click="activeSection = 'wishes'">
+        <a href="#" 
+           class="menu-item" 
+           :class="{ active: activeSection === 'wishes' }" 
+           @click="activeSection = 'wishes'">
           <i class="fas fa-comment-dots"></i>
           <span>Wishes</span>
         </a>
-        <a href="#" class="menu-item" @click="activeSection = 'photos'">
+        <a href="#" 
+           class="menu-item" 
+           :class="{ active: activeSection === 'photos' }" 
+           @click="activeSection = 'photos'">
           <i class="fas fa-image"></i>
           <span>Photos</span>
         </a>
-        <a href="#" class="menu-item" @click="activeSection = 'settings'">
+        <a href="#" 
+           class="menu-item" 
+           :class="{ active: activeSection === 'settings' }" 
+           @click="activeSection = 'settings'">
           <i class="fas fa-cog"></i>
           <span>Settings</span>
         </a>
-        <a href="#" class="menu-item" @click="handleLogout">
+        <a href="#" 
+           class="menu-item" 
+           @click="handleLogout">
           <i class="fas fa-sign-out-alt"></i>
           <span>Logout</span>
         </a>
@@ -76,7 +90,7 @@
               <div class="form-row">
                 <div class="form-group">
                   <label for="full-name">Your Name</label>
-                  <input type="text" id="full-name" v-model="config.name" required>
+                  <input type="text" id="full-name" v-model="config.name" readonly>
                 </div>
                 <div class="form-group">
                   <label for="birthday-date">Birthday Date</label>
@@ -87,36 +101,6 @@
               <div class="form-group">
                 <label for="birthday-message">Birthday Message</label>
                 <textarea id="birthday-message" v-model="config.message" rows="3" placeholder="Custom message to display on your birthday page"></textarea>
-              </div>
-
-              <h3 style="margin: 1.5rem 0 1rem 0;">Theme Options</h3>
-              <div class="form-group">
-                <label>Choose Theme</label>
-                <div class="theme-preview">
-                  <div class="theme-option light-theme" :class="{ active: config.theme === 'light' }" @click="config.theme = 'light'">
-                    <div class="theme-header"></div>
-                    <div class="theme-body"></div>
-                  </div>
-                  <div class="theme-option dark-theme" :class="{ active: config.theme === 'dark' }" @click="config.theme = 'dark'">
-                    <div class="theme-header"></div>
-                    <div class="theme-body"></div>
-                  </div>
-                  <div class="theme-option custom-theme" :class="{ active: config.theme === 'custom' }" @click="config.theme = 'custom'">
-                    <div class="theme-header"></div>
-                    <div class="theme-body"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="primary-color">Primary Color</label>
-                  <input type="color" id="primary-color" v-model="config.primaryColor">
-                </div>
-                <div class="form-group">
-                  <label for="secondary-color">Secondary Color</label>
-                  <input type="color" id="secondary-color" v-model="config.secondaryColor">
-                </div>
               </div>
 
               <h3 style="margin: 1.5rem 0 1rem 0;">Photo Gallery</h3>
@@ -275,7 +259,7 @@
 
         <div class="photos-grid">
           <div v-for="(photo, index) in config.photos" :key="index" class="photo-card">
-            <img :src="photo" :alt="'Photo ' + (index + 1)" class="photo-preview">
+            <img :src="photo" :alt="'Photo ' + (index + 1)" class="photo-preview" @click="viewPhoto(photo)">
             <div class="photo-actions">
               <button class="btn btn-danger" @click="removePhoto(index)">
                 <i class="fas fa-trash"></i> Delete
@@ -452,6 +436,16 @@
 
   <!-- Toast Notification -->
   <div class="toast" :class="{ active: showToast }">{{ toastMessage }}</div>
+
+  <!-- Image Viewer Modal -->
+  <div class="image-viewer-modal" v-if="selectedPhoto" @click="closeImageViewer">
+    <div class="modal-content" @click.stop>
+      <button class="close-modal" @click="closeImageViewer">
+        <i class="fas fa-times"></i>
+      </button>
+      <img :src="selectedPhoto" alt="Selected photo" class="modal-image">
+    </div>
+  </div>
 </template>
 
 <script>
@@ -474,8 +468,8 @@ export default {
     const searchQuery = ref('');
 
     const config = ref({
-      name: currentUser.value?.name || '',
-      birthdayDate: '',
+      name: localStorage.getItem('userName') || currentUser.value?.name || '',
+      birthdayDate: localStorage.getItem('birthdayDate') || '',
       message: '',
       theme: 'light',
       primaryColor: '#FF4D6D',
@@ -526,7 +520,7 @@ export default {
     });
 
     const totalWishes = computed(() => wishes.value.length);
-    const shareLink = computed(() => `https://birthday-db.onrender.com/birthday/${uniqueRoute.value}`);
+    const shareLink = computed(() => `https://birthday-db.onrender.com/api/wishes/${uniqueRoute.value}`);
 
     const showNotification = (message) => {
       toastMessage.value = message;
@@ -536,12 +530,76 @@ export default {
       }, 3000);
     };
 
+    const loadSavedPhotos = () => {
+      const savedPhotos = localStorage.getItem(`photos_${uniqueRoute.value}`);
+      if (savedPhotos) {
+        try {
+          const parsedPhotos = JSON.parse(savedPhotos);
+          if (Array.isArray(parsedPhotos)) {
+            config.value.photos = parsedPhotos;
+          }
+        } catch (error) {
+          console.error('Error loading saved photos:', error);
+          config.value.photos = [];
+        }
+      }
+    };
+
+    const addPhoto = () => {
+      if (config.value.photos.length >= 5) {
+        showNotification('Maximum 5 photos allowed');
+        return;
+      }
+
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.onchange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            config.value.photos.push(e.target.result);
+            // Save photos to localStorage immediately after adding
+            localStorage.setItem(`photos_${uniqueRoute.value}`, JSON.stringify(config.value.photos));
+            showNotification('Photo added successfully!');
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+      input.click();
+    };
+
+    const removePhoto = (index) => {
+      config.value.photos.splice(index, 1);
+      // Update localStorage immediately after removing
+      localStorage.setItem(`photos_${uniqueRoute.value}`, JSON.stringify(config.value.photos));
+      showNotification('Photo removed successfully!');
+    };
+
     const saveAllChanges = async () => {
       try {
-        // Save configuration
-        await api.updateConfig(uniqueRoute.value, config.value);
-        showNotification('Changes saved successfully!');
+        // Save configuration to localStorage
+        localStorage.setItem('birthdayDate', config.value.birthdayDate);
+        localStorage.setItem('userName', config.value.name);
+        localStorage.setItem(`photos_${uniqueRoute.value}`, JSON.stringify(config.value.photos));
+        
+        // Save configuration to API
+        const response = await api.updateConfig(uniqueRoute.value, {
+          name: config.value.name,
+          birthdayDate: config.value.birthdayDate,
+          message: config.value.message,
+          photos: config.value.photos,
+          music: config.value.music
+        });
+
+        if (response && response.status === 'success') {
+          showNotification('All changes saved successfully!');
+        } else {
+          showNotification('Changes saved successfully!');
+        }
       } catch (error) {
+        console.error('Error saving changes:', error);
         showNotification('Error saving changes. Please try again.');
       }
     };
@@ -553,27 +611,6 @@ export default {
     const copyLink = () => {
       navigator.clipboard.writeText(shareLink.value);
       showNotification('Link copied to clipboard!');
-    };
-
-    const addPhoto = () => {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'image/*';
-      input.onchange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            config.value.photos.push(e.target.result);
-          };
-          reader.readAsDataURL(file);
-        }
-      };
-      input.click();
-    };
-
-    const removePhoto = (index) => {
-      config.value.photos.splice(index, 1);
     };
 
     const handleLogout = () => {
@@ -657,8 +694,9 @@ export default {
       try {
         const response = await api.getWishes(uniqueRoute.value);
         wishes.value = response.data;
+        console.log(wishes.value)
       } catch (error) {
-        showToastMessage('Failed to fetch wishes');
+        showNotification('Failed to fetch wishes');
       }
     };
 
@@ -667,9 +705,9 @@ export default {
         await api.updateUser(currentUser.value.id, {
           name: currentUser.value.name
         });
-        showToastMessage('Account updated successfully');
+        showNotification('Account updated successfully');
       } catch (error) {
-        showToastMessage('Failed to update account');
+        showNotification('Failed to update account');
       }
     };
 
@@ -678,9 +716,9 @@ export default {
         await api.updateSettings(uniqueRoute.value, {
           notifications: settings.value.notifications
         });
-        showToastMessage('Notification preferences saved');
+        showNotification('Notification preferences saved');
       } catch (error) {
-        showToastMessage('Failed to update notification settings');
+        showNotification('Failed to update notification settings');
       }
     };
 
@@ -689,9 +727,9 @@ export default {
         await api.updateSettings(uniqueRoute.value, {
           privacy: settings.value.privacy
         });
-        showToastMessage('Privacy settings updated');
+        showNotification('Privacy settings updated');
       } catch (error) {
-        showToastMessage('Failed to update privacy settings');
+        showNotification('Failed to update privacy settings');
       }
     };
 
@@ -703,10 +741,10 @@ export default {
           currentPassword: password.value.current,
           newPassword: password.value.new
         });
-        showToastMessage('Password updated successfully');
+        showNotification('Password updated successfully');
         password.value = { current: '', new: '', confirm: '' };
       } catch (error) {
-        showToastMessage('Failed to update password');
+        showNotification('Failed to update password');
       }
     };
 
@@ -721,7 +759,7 @@ export default {
         await api.deleteAccount(currentUser.value.id);
         handleLogout();
       } catch (error) {
-        showToastMessage('Failed to delete account');
+        showNotification('Failed to delete account');
       }
     };
 
@@ -735,10 +773,22 @@ export default {
       try {
         await api.deleteAllWishes(uniqueRoute.value);
         wishes.value = [];
-        showToastMessage('All wishes deleted successfully');
+        showNotification('All wishes deleted successfully');
       } catch (error) {
-        showToastMessage('Failed to delete wishes');
+        showNotification('Failed to delete wishes');
       }
+    };
+
+    const selectedPhoto = ref(null);
+
+    const viewPhoto = (photo) => {
+      selectedPhoto.value = photo;
+      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    };
+
+    const closeImageViewer = () => {
+      selectedPhoto.value = null;
+      document.body.style.overflow = ''; // Restore scrolling
     };
 
     onMounted(async () => {
@@ -747,6 +797,7 @@ export default {
         return;
       }
       await fetchWishes();
+      loadSavedPhotos(); // Load saved photos
     });
 
     return {
@@ -787,7 +838,10 @@ export default {
       updatePrivacySettings,
       updatePassword,
       confirmDeleteAccount,
-      confirmDeleteWishes
+      confirmDeleteWishes,
+      selectedPhoto,
+      viewPhoto,
+      closeImageViewer
     };
   }
 };
@@ -1585,5 +1639,52 @@ input[type="color"] {
   .danger-actions {
     grid-template-columns: 1fr;
   }
+}
+
+/* Image Viewer Modal Styles */
+.image-viewer-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90vh;
+}
+
+.close-modal {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.modal-image {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.photo-preview {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.photo-preview:hover {
+  transform: scale(1.02);
 }
 </style> 
