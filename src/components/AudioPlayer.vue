@@ -170,6 +170,7 @@ export default {
   white-space: nowrap;
 }
 
+
 .song-title {
   font-weight: bold;
   color: var(--accent-color);
