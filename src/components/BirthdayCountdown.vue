@@ -14,9 +14,16 @@
         April 14<span class="blinking-dot">.....</span>
       </div>
 
-      <CountdownTimer :birthday="birthday" @birthday-reached="onBirthdayReached" />
+      <CountdownTimer
+        :birthday="birthday"
+        @birthday-reached="onBirthdayReached"
+      />
 
-      <div class="time-display" :class="{ blinking: isBlinking }" @click="toggleBlinking">
+      <div
+        class="time-display"
+        :class="{ blinking: isBlinking }"
+        @click="toggleBlinking"
+      >
         14 | 04
       </div>
       <p class="text-white blinking-note">Click to toggle blinking</p>
@@ -24,52 +31,63 @@
 
     <div v-else class="birthday-content">
       <PhotoCarousel :images="birthdayImages" />
-      
+
       <div class="birthday-message">
         <h2>Happy Birthday Esther! 🎂</h2>
-        <p>Today is all about celebrating the amazing person you are! Wishing you joy, love, and exciting tech adventures in the coming year and always! 🚀💖</p>
+        <p>
+          Today is all about celebrating the amazing person you are! Wishing you
+          joy, love, and exciting tech adventures in the coming year and always!
+          🚀💖
+        </p>
       </div>
     </div>
 
-    <BirthdayWish 
+    <BirthdayWish
       :wishes="wishes"
+      :unique-route="uniqueRoute"
       @add-wish="addWish"
     />
   </div>
 </template>
 
 <script>
-import { useThemeStore } from '../stores/themeStore'
-import ConfettiEffect from './ConfettiEffect.vue'
-import PhotoCarousel from './PhotoCarousel.vue'
-import CountdownTimer from './CountdownTimer.vue'
-import BirthdayWish from './BirthdayWish.vue'
+import { useThemeStore } from "../stores/themeStore";
+import ConfettiEffect from "./ConfettiEffect.vue";
+import PhotoCarousel from "./PhotoCarousel.vue";
+import CountdownTimer from "./CountdownTimer.vue";
+import BirthdayWish from "./BirthdayWish.vue";
 
 export default {
-  name: 'BirthdayCountdown',
+  name: "BirthdayCountdown",
   components: {
     ConfettiEffect,
     PhotoCarousel,
     CountdownTimer,
-    BirthdayWish
+    BirthdayWish,
   },
   setup() {
-    const themeStore = useThemeStore()
-    themeStore.initializeTheme()
-    return { themeStore }
+    const themeStore = useThemeStore();
+    themeStore.initializeTheme();
+    return { themeStore };
   },
   data() {
-    const birthday = new Date("2025-04-14T15:54:00")
-    console.log('Birthday date initialized:', birthday.toISOString())
-    
+    const birthday = new Date("2025-04-14T15:54:00");
+    console.log("Birthday date initialized:", birthday.toISOString());
+
     // Load photos from localStorage
-    const uniqueRoute = localStorage.getItem('uniqueRoute');
+    const uniqueRoute =
+      this.$route.params.uniqueRoute || localStorage.getItem("uniqueRoute");
     const savedPhotos = localStorage.getItem(`photos_${uniqueRoute}`);
-    const birthdayImages = savedPhotos ? JSON.parse(savedPhotos).map(photo => ({ src: photo, alt: 'Birthday photo' })) : [
-      { src: '/images/birthday-1.jpg', alt: 'Happy Esther Day' },
-      { src: '/images/birthday-2.jpg', alt: 'Birthday Smiles' },
-      { src: '/images/birthday-3.jpg', alt: 'Best Moments' }
-    ];
+    const birthdayImages = savedPhotos
+      ? JSON.parse(savedPhotos).map((photo) => ({
+          src: photo,
+          alt: "Birthday photo",
+        }))
+      : [
+          { src: "/images/birthday-1.jpg", alt: "Happy Esther Day" },
+          { src: "/images/birthday-2.jpg", alt: "Birthday Smiles" },
+          { src: "/images/birthday-3.jpg", alt: "Best Moments" },
+        ];
 
     return {
       birthday,
@@ -77,54 +95,59 @@ export default {
       isBlinking: false,
       wishes: [
         {
-          name: 'The Team',
-          message: 'Happy Birthday Esther! You bring so much joy to everyone around you!'
-        }
+          name: "The Team",
+          message:
+            "Happy Birthday Esther! You bring so much joy to everyone around you!",
+        },
       ],
-      birthdayImages
-    }
+      birthdayImages,
+      uniqueRoute,
+    };
   },
   mounted() {
-    console.log(this.birthday)
-    this.createStars()
+    console.log(this.birthday);
+    this.createStars();
     // Initialize confetti canvas
-    if (this.$refs.confettiCanvas && this.$refs.confettiCanvas.initializeCanvas) {
-      this.$refs.confettiCanvas.initializeCanvas()
+    if (
+      this.$refs.confettiCanvas &&
+      this.$refs.confettiCanvas.initializeCanvas
+    ) {
+      this.$refs.confettiCanvas.initializeCanvas();
     }
   },
   methods: {
     createStars() {
-      const bgAnimation = this.$refs.bgAnimation
+      const bgAnimation = this.$refs.bgAnimation;
       if (!bgAnimation) return;
 
-      const screenWidth = window.innerWidth
-      const screenHeight = window.innerHeight
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
 
-      console.log(this.birthday)
-      
+      console.log(this.birthday);
+
       for (let i = 0; i < 100; i++) {
-        const star = document.createElement('div')
-        star.classList.add('star')
-        star.style.left = `${Math.random() * screenWidth}px`
-        star.style.top = `${Math.random() * screenHeight}px`
-        star.style.animationDelay = `${Math.random() * 5}s`
-        bgAnimation.appendChild(star)
+        const star = document.createElement("div");
+        star.classList.add("star");
+        star.style.left = `${Math.random() * screenWidth}px`;
+        star.style.top = `${Math.random() * screenHeight}px`;
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        bgAnimation.appendChild(star);
       }
     },
     onBirthdayReached() {
-      this.isBirthday = true
+      this.isBirthday = true;
       if (this.$refs.confettiCanvas) {
-        this.$refs.confettiCanvas.launchConfetti()
+        this.$refs.confettiCanvas.launchConfetti();
       }
     },
     toggleBlinking() {
-      this.isBlinking = !this.isBlinking
+      this.isBlinking = !this.isBlinking;
     },
     addWish(wish) {
-      this.wishes.unshift(wish)
-    }
-  }
-}
+      this.wishes.unshift(wish);
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -155,8 +178,14 @@ export default {
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 1; transform: scale(1.5); }
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
 }
 
 .main-content {
@@ -181,9 +210,15 @@ export default {
 }
 
 @keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .birthday-emoji {
@@ -193,8 +228,13 @@ export default {
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 #birthdayDate {
@@ -212,9 +252,15 @@ export default {
 }
 
 @keyframes blink {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .time-display {
@@ -281,15 +327,15 @@ export default {
   .headline {
     font-size: 2rem;
   }
-  
+
   .time-display {
     font-size: 3rem;
   }
-  
+
   .birthday-message h2 {
     font-size: 2rem;
   }
-  
+
   .birthday-message p {
     font-size: 1rem;
   }

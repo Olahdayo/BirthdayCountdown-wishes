@@ -8,41 +8,47 @@
           <div class="user-avatar">
             <i class="fas fa-user"></i>
           </div>
-          <div class="user-name">{{ currentUser?.name || 'User' }}</div>
+          <div class="user-name">{{ currentUser?.name || "User" }}</div>
         </div>
       </div>
       <div class="sidebar-menu">
-        <a href="#" 
-           class="menu-item" 
-           :class="{ active: activeSection === 'dashboard' }" 
-           @click="activeSection = 'dashboard'">
+        <a
+          href="#"
+          class="menu-item"
+          :class="{ active: activeSection === 'dashboard' }"
+          @click="activeSection = 'dashboard'"
+        >
           <i class="fas fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
-        <a href="#" 
-           class="menu-item" 
-           :class="{ active: activeSection === 'wishes' }" 
-           @click="activeSection = 'wishes'">
+        <a
+          href="#"
+          class="menu-item"
+          :class="{ active: activeSection === 'wishes' }"
+          @click="activeSection = 'wishes'"
+        >
           <i class="fas fa-comment-dots"></i>
           <span>Wishes</span>
         </a>
-        <a href="#" 
-           class="menu-item" 
-           :class="{ active: activeSection === 'photos' }" 
-           @click="activeSection = 'photos'">
+        <a
+          href="#"
+          class="menu-item"
+          :class="{ active: activeSection === 'photos' }"
+          @click="activeSection = 'photos'"
+        >
           <i class="fas fa-image"></i>
           <span>Photos</span>
         </a>
-        <a href="#" 
-           class="menu-item" 
-           :class="{ active: activeSection === 'settings' }" 
-           @click="activeSection = 'settings'">
+        <a
+          href="#"
+          class="menu-item"
+          :class="{ active: activeSection === 'settings' }"
+          @click="activeSection = 'settings'"
+        >
           <i class="fas fa-cog"></i>
           <span>Settings</span>
         </a>
-        <a href="#" 
-           class="menu-item" 
-           @click="handleLogout">
+        <a href="#" class="menu-item" @click="handleLogout">
           <i class="fas fa-sign-out-alt"></i>
           <span>Logout</span>
         </a>
@@ -55,7 +61,9 @@
       <div v-if="activeSection === 'dashboard'" class="dashboard-section">
         <div class="dashboard-header">
           <h1 class="page-title">My Birthday Dashboard</h1>
-          <button class="btn btn-primary" @click="saveAllChanges">Save All Changes</button>
+          <button class="btn btn-primary" @click="saveAllChanges">
+            Save All Changes
+          </button>
         </div>
 
         <!-- Dashboard Metrics -->
@@ -80,7 +88,9 @@
         <!-- Birthday Configuration Section -->
         <div class="section-header">
           <h2 class="section-title">Birthday Page Configuration</h2>
-          <button class="btn btn-secondary" @click="previewBirthdayPage">Preview Birthday Page</button>
+          <button class="btn btn-secondary" @click="previewBirthdayPage">
+            Preview Birthday Page
+          </button>
         </div>
 
         <div class="config-panels">
@@ -90,40 +100,69 @@
               <div class="form-row">
                 <div class="form-group">
                   <label for="full-name">Your Name</label>
-                  <input type="text" id="full-name" v-model="config.name" readonly>
+                  <input
+                    type="text"
+                    id="full-name"
+                    v-model="config.name"
+                    readonly
+                  />
                 </div>
                 <div class="form-group">
                   <label for="birthday-date">Birthday Date</label>
-                  <input type="date" id="birthday-date" v-model="config.birthdayDate" required>
+                  <input
+                    type="date"
+                    id="birthday-date"
+                    v-model="config.birthdayDate"
+                    required
+                  />
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="birthday-message">Birthday Message</label>
-                <textarea id="birthday-message" v-model="config.message" rows="3" placeholder="Custom message to display on your birthday page"></textarea>
+                <textarea
+                  id="birthday-message"
+                  v-model="config.message"
+                  rows="3"
+                  placeholder="Custom message to display on your birthday page"
+                ></textarea>
               </div>
 
-              <h3 style="margin: 1.5rem 0 1rem 0;">Photo Gallery</h3>
+              <h3 style="margin: 1.5rem 0 1rem 0">Photo Gallery</h3>
               <p>Add photos to your birthday carousel (up to 5)</p>
 
               <div class="photo-upload">
-                <div v-for="(photo, index) in config.photos" :key="index" class="photo-item">
-                  <img :src="photo" alt="Birthday photo">
-                  <div class="photo-remove" @click="removePhoto(index)"><i class="fas fa-times"></i></div>
+                <div
+                  v-for="(photo, index) in config.photos"
+                  :key="index"
+                  class="photo-item"
+                >
+                  <img :src="photo" alt="Birthday photo" />
+                  <div class="photo-remove" @click="removePhoto(index)">
+                    <i class="fas fa-times"></i>
+                  </div>
                 </div>
-                <div v-if="config.photos.length < 5" class="photo-upload-btn" @click="addPhoto">
+                <div
+                  v-if="config.photos.length < 5"
+                  class="photo-upload-btn"
+                  @click="addPhoto"
+                >
                   <i class="fas fa-plus"></i>
                   <span>Add Photo</span>
                 </div>
               </div>
 
-              <h3 style="margin: 1.5rem 0 1rem 0;">Birthday Music</h3>
+              <h3 style="margin: 1.5rem 0 1rem 0">Birthday Music</h3>
               <div class="form-group">
                 <label for="music-option">Choose Birthday Music</label>
                 <select id="music-option" v-model="config.music">
-                  <option value="happy-birthday">Happy Birthday Song (Traditional)</option>
+                  <option value="happy-birthday">
+                    Happy Birthday Song (Traditional)
+                  </option>
                   <option value="birthday-pop">Birthday Pop Remix</option>
-                  <option value="celebration">Celebration - Kool & The Gang</option>
+                  <option value="celebration">
+                    Celebration - Kool & The Gang
+                  </option>
                   <option value="none">No Music</option>
                 </select>
               </div>
@@ -133,23 +172,50 @@
           <!-- Share Panel -->
           <div class="panel">
             <h3>Share Your Birthday Page</h3>
-            <p style="margin-top: 0.5rem;">Generate a link to share with friends and family</p>
+            <p style="margin-top: 0.5rem">
+              Generate a link to share with friends and family
+            </p>
 
             <div class="share-link">
-              <input type="text" class="link-input" :value="shareLink" readonly>
-              <button class="copy-btn" @click="copyLink"><i class="fas fa-copy"></i></button>
+              <input
+                type="text"
+                class="link-input"
+                :value="shareLink"
+                readonly
+              />
+              <button class="copy-btn" @click="copyLink">
+                <i class="fas fa-copy"></i>
+              </button>
             </div>
 
-            <p style="margin-top: 1rem;">Or share directly to:</p>
+            <p style="margin-top: 1rem">Or share directly to:</p>
             <div class="share-options">
-              <div class="share-option share-facebook" @click="shareToFacebook"><i class="fab fa-facebook-f"></i></div>
-              <div class="share-option share-twitter" @click="shareToTwitter"><i class="fab fa-twitter"></i></div>
-              <div class="share-option share-whatsapp" @click="shareToWhatsApp"><i class="fab fa-whatsapp"></i></div>
-              <div class="share-option share-email" @click="shareToEmail"><i class="fas fa-envelope"></i></div>
+              <div class="share-option share-facebook" @click="shareToFacebook">
+                <i class="fab fa-facebook-f"></i>
+              </div>
+              <div class="share-option share-twitter" @click="shareToTwitter">
+                <i class="fab fa-twitter"></i>
+              </div>
+              <div class="share-option share-whatsapp" @click="shareToWhatsApp">
+                <i class="fab fa-whatsapp"></i>
+              </div>
+              <div class="share-option share-email" @click="shareToEmail">
+                <i class="fas fa-envelope"></i>
+              </div>
             </div>
 
-            <h3 style="margin-top: 2rem;">Page Analytics</h3>
-            <div style="background-color: var(--light-gray-color); height: 200px; border-radius: 5px; margin-top: 1rem; display: flex; justify-content: center; align-items: center;">
+            <h3 style="margin-top: 2rem">Page Analytics</h3>
+            <div
+              style="
+                background-color: var(--light-gray-color);
+                height: 200px;
+                border-radius: 5px;
+                margin-top: 1rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
               <span>Traffic chart will appear here</span>
             </div>
           </div>
@@ -171,9 +237,19 @@
                 {{ wish.message }}
               </div>
               <div class="wish-actions">
-                <button @click="toggleFavorite(wish)"><i class="fas fa-heart" :class="{ 'text-red': wish.isFavorite }"></i> Favorite</button>
-                <button @click="replyToWish(wish)"><i class="fas fa-reply"></i> Reply</button>
-                <button @click="deleteWish(wish)"><i class="fas fa-trash"></i> Delete</button>
+                <button @click="toggleFavorite(wish)">
+                  <i
+                    class="fas fa-heart"
+                    :class="{ 'text-red': wish.isFavorite }"
+                  ></i>
+                  Favorite
+                </button>
+                <button @click="replyToWish(wish)">
+                  <i class="fas fa-reply"></i> Reply
+                </button>
+                <button @click="deleteWish(wish)">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
               </div>
             </div>
           </div>
@@ -191,15 +267,15 @@
 
         <div class="wishes-filters">
           <div class="filter-group">
-            <button 
-              class="filter-btn" 
+            <button
+              class="filter-btn"
               :class="{ active: filter === 'all' }"
               @click="filter = 'all'"
             >
               All
             </button>
-            <button 
-              class="filter-btn" 
+            <button
+              class="filter-btn"
               :class="{ active: filter === 'favorites' }"
               @click="filter = 'favorites'"
             >
@@ -207,12 +283,12 @@
             </button>
           </div>
           <div class="search-box">
-            <input 
-              type="text" 
-              v-model="searchQuery" 
+            <input
+              type="text"
+              v-model="searchQuery"
               placeholder="Search wishes..."
               class="search-input"
-            >
+            />
             <i class="fas fa-search"></i>
           </div>
         </div>
@@ -229,8 +305,8 @@
                 <div class="wish-date">{{ formatDate(wish.date) }}</div>
               </div>
               <div class="wish-actions">
-                <button 
-                  class="action-btn" 
+                <button
+                  class="action-btn"
                   @click="toggleFavorite(wish)"
                   :class="{ active: wish.isFavorite }"
                 >
@@ -252,14 +328,27 @@
       <div v-if="activeSection === 'photos'" class="photos-section">
         <div class="section-header">
           <h2 class="section-title">Photo Gallery</h2>
-          <button class="btn btn-primary" @click="addPhoto" v-if="config.photos.length < 5">
+          <button
+            class="btn btn-primary"
+            @click="addPhoto"
+            v-if="config.photos.length < 5"
+          >
             <i class="fas fa-plus"></i> Add Photo
           </button>
         </div>
 
         <div class="photos-grid">
-          <div v-for="(photo, index) in config.photos" :key="index" class="photo-card">
-            <img :src="photo" :alt="'Photo ' + (index + 1)" class="photo-preview" @click="viewPhoto(photo)">
+          <div
+            v-for="(photo, index) in config.photos"
+            :key="index"
+            class="photo-card"
+          >
+            <img
+              :src="photo"
+              :alt="'Photo ' + (index + 1)"
+              class="photo-preview"
+              @click="viewPhoto(photo)"
+            />
             <div class="photo-actions">
               <button class="btn btn-danger" @click="removePhoto(index)">
                 <i class="fas fa-trash"></i> Delete
@@ -288,22 +377,22 @@
             <h3>Account Settings</h3>
             <div class="form-group">
               <label for="display-name">Display Name</label>
-              <input 
-                type="text" 
-                id="display-name" 
+              <input
+                type="text"
+                id="display-name"
                 v-model="currentUser.name"
                 placeholder="Your display name"
-              >
+              />
             </div>
             <div class="form-group">
               <label for="email">Email Address</label>
-              <input 
-                type="email" 
-                id="email" 
+              <input
+                type="email"
+                id="email"
                 v-model="currentUser.email"
                 placeholder="Your email address"
                 disabled
-              >
+              />
               <small class="text-muted">Email cannot be changed</small>
             </div>
             <button class="btn btn-primary" @click="updateAccountSettings">
@@ -316,28 +405,25 @@
             <h3>Notification Preferences</h3>
             <div class="form-group">
               <label class="checkbox-label">
-                <input 
-                  type="checkbox" 
-                  v-model="settings.notifications.email"
-                >
+                <input type="checkbox" v-model="settings.notifications.email" />
                 Email notifications for new wishes
               </label>
             </div>
             <div class="form-group">
               <label class="checkbox-label">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   v-model="settings.notifications.favorites"
-                >
+                />
                 Notify when someone favorites your wishes
               </label>
             </div>
             <div class="form-group">
               <label class="checkbox-label">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   v-model="settings.notifications.replies"
-                >
+                />
                 Notify when someone replies to your wishes
               </label>
             </div>
@@ -375,33 +461,33 @@
             <h3>Security</h3>
             <div class="form-group">
               <label for="current-password">Current Password</label>
-              <input 
-                type="password" 
-                id="current-password" 
+              <input
+                type="password"
+                id="current-password"
                 v-model="password.current"
                 placeholder="Enter current password"
-              >
+              />
             </div>
             <div class="form-group">
               <label for="new-password">New Password</label>
-              <input 
-                type="password" 
-                id="new-password" 
+              <input
+                type="password"
+                id="new-password"
                 v-model="password.new"
                 placeholder="Enter new password"
-              >
+              />
             </div>
             <div class="form-group">
               <label for="confirm-password">Confirm New Password</label>
-              <input 
-                type="password" 
-                id="confirm-password" 
+              <input
+                type="password"
+                id="confirm-password"
                 v-model="password.confirm"
                 placeholder="Confirm new password"
-              >
+              />
             </div>
-            <button 
-              class="btn btn-primary" 
+            <button
+              class="btn btn-primary"
               @click="updatePassword"
               :disabled="!isPasswordValid"
             >
@@ -438,68 +524,74 @@
   <div class="toast" :class="{ active: showToast }">{{ toastMessage }}</div>
 
   <!-- Image Viewer Modal -->
-  <div class="image-viewer-modal" v-if="selectedPhoto" @click="closeImageViewer">
+  <div
+    class="image-viewer-modal"
+    v-if="selectedPhoto"
+    @click="closeImageViewer"
+  >
     <div class="modal-content" @click.stop>
       <button class="close-modal" @click="closeImageViewer">
         <i class="fas fa-times"></i>
       </button>
-      <img :src="selectedPhoto" alt="Selected photo" class="modal-image">
+      <img :src="selectedPhoto" alt="Selected photo" class="modal-image" />
     </div>
   </div>
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { api } from '../services/api';
+import { ref, computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { api } from "../services/api";
 
 export default {
-  name: 'Dashboard',
+  name: "Dashboard",
   setup() {
     const router = useRouter();
-    const currentUser = ref(JSON.parse(localStorage.getItem('currentUser')));
-    const uniqueRoute = ref(localStorage.getItem('uniqueRoute'));
+    const currentUser = ref(JSON.parse(localStorage.getItem("currentUser")));
+    const uniqueRoute = ref(localStorage.getItem("uniqueRoute"));
     const showToast = ref(false);
-    const toastMessage = ref('');
+    const toastMessage = ref("");
     const wishes = ref([]);
     const pageViews = ref(0);
-    const activeSection = ref('dashboard');
-    const filter = ref('all');
-    const searchQuery = ref('');
+    const activeSection = ref("dashboard");
+    const filter = ref("all");
+    const searchQuery = ref("");
 
     const config = ref({
-      name: localStorage.getItem('userName') || currentUser.value?.name || '',
-      birthdayDate: localStorage.getItem('birthdayDate') || '',
-      message: '',
-      theme: 'light',
-      primaryColor: '#FF4D6D',
-      secondaryColor: '#7B2CBF',
+      name: localStorage.getItem("userName") || currentUser.value?.name || "",
+      birthdayDate: localStorage.getItem("birthdayDate") || "",
+      message: "",
+      theme: "light",
+      primaryColor: "#FF4D6D",
+      secondaryColor: "#7B2CBF",
       photos: [],
-      music: 'happy-birthday'
+      music: "happy-birthday",
     });
 
     const settings = ref({
       notifications: {
         email: true,
         favorites: true,
-        replies: true
+        replies: true,
       },
       privacy: {
-        visibility: 'public',
-        wishes: 'everyone'
-      }
+        visibility: "public",
+        wishes: "everyone",
+      },
     });
 
     const password = ref({
-      current: '',
-      new: '',
-      confirm: ''
+      current: "",
+      new: "",
+      confirm: "",
     });
 
     const isPasswordValid = computed(() => {
-      return password.value.new && 
-             password.value.new === password.value.confirm &&
-             password.value.new.length >= 8;
+      return (
+        password.value.new &&
+        password.value.new === password.value.confirm &&
+        password.value.new.length >= 8
+      );
     });
 
     const daysUntilBirthday = computed(() => {
@@ -511,16 +603,21 @@ export default {
     });
 
     const formattedBirthdayDate = computed(() => {
-      if (!config.value.birthdayDate) return '';
-      return new Date(config.value.birthdayDate).toLocaleDateString('en-US', {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric'
+      if (!config.value.birthdayDate) return "";
+      return new Date(config.value.birthdayDate).toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
       });
     });
 
     const totalWishes = computed(() => wishes.value.length);
-    const shareLink = computed(() => `https://birthday-db.onrender.com/api/wishes/${uniqueRoute.value}`);
+    const shareLink = computed(
+      () => `${window.location.origin}/birthday/${uniqueRoute.value}`
+    );
+    const backendApiEndpoint = computed(
+      () => `https://birthday-db.onrender.com/api/wishes/${uniqueRoute.value}`
+    );
 
     const showNotification = (message) => {
       toastMessage.value = message;
@@ -539,7 +636,7 @@ export default {
             config.value.photos = parsedPhotos;
           }
         } catch (error) {
-          console.error('Error loading saved photos:', error);
+          console.error("Error loading saved photos:", error);
           config.value.photos = [];
         }
       }
@@ -547,13 +644,13 @@ export default {
 
     const addPhoto = () => {
       if (config.value.photos.length >= 5) {
-        showNotification('Maximum 5 photos allowed');
+        showNotification("Maximum 5 photos allowed");
         return;
       }
 
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'image/*';
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "image/*";
       input.onchange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -561,8 +658,11 @@ export default {
           reader.onload = (e) => {
             config.value.photos.push(e.target.result);
             // Save photos to localStorage immediately after adding
-            localStorage.setItem(`photos_${uniqueRoute.value}`, JSON.stringify(config.value.photos));
-            showNotification('Photo added successfully!');
+            localStorage.setItem(
+              `photos_${uniqueRoute.value}`,
+              JSON.stringify(config.value.photos)
+            );
+            showNotification("Photo added successfully!");
           };
           reader.readAsDataURL(file);
         }
@@ -573,58 +673,64 @@ export default {
     const removePhoto = (index) => {
       config.value.photos.splice(index, 1);
       // Update localStorage immediately after removing
-      localStorage.setItem(`photos_${uniqueRoute.value}`, JSON.stringify(config.value.photos));
-      showNotification('Photo removed successfully!');
+      localStorage.setItem(
+        `photos_${uniqueRoute.value}`,
+        JSON.stringify(config.value.photos)
+      );
+      showNotification("Photo removed successfully!");
     };
 
     const saveAllChanges = async () => {
       try {
         // Save configuration to localStorage
-        localStorage.setItem('birthdayDate', config.value.birthdayDate);
-        localStorage.setItem('userName', config.value.name);
-        localStorage.setItem(`photos_${uniqueRoute.value}`, JSON.stringify(config.value.photos));
-        
+        localStorage.setItem("birthdayDate", config.value.birthdayDate);
+        localStorage.setItem("userName", config.value.name);
+        localStorage.setItem(
+          `photos_${uniqueRoute.value}`,
+          JSON.stringify(config.value.photos)
+        );
+
         // Save configuration to API
         const response = await api.updateConfig(uniqueRoute.value, {
           name: config.value.name,
           birthdayDate: config.value.birthdayDate,
           message: config.value.message,
           photos: config.value.photos,
-          music: config.value.music
+          music: config.value.music,
         });
 
-        if (response && response.status === 'success') {
-          showNotification('All changes saved successfully!');
+        if (response && response.status === "success") {
+          showNotification("All changes saved successfully!");
         } else {
-          showNotification('Changes saved successfully!');
+          showNotification("Changes saved successfully!");
         }
       } catch (error) {
-        console.error('Error saving changes:', error);
-        showNotification('Error saving changes. Please try again.');
+        console.error("Error saving changes:", error);
+        showNotification("Error saving changes. Please try again.");
       }
     };
 
     const previewBirthdayPage = () => {
-      router.push('/birthday');
+      router.push("/birthday");
     };
 
     const copyLink = () => {
       navigator.clipboard.writeText(shareLink.value);
-      showNotification('Link copied to clipboard!');
+      showNotification("Link copied to clipboard!");
     };
 
     const handleLogout = () => {
-      localStorage.removeItem('isAuthenticated');
-      localStorage.removeItem('currentUser');
-      localStorage.removeItem('uniqueRoute');
-      router.push('/');
+      localStorage.removeItem("isAuthenticated");
+      localStorage.removeItem("currentUser");
+      localStorage.removeItem("uniqueRoute");
+      router.push("/");
     };
 
     const formatDate = (date) => {
-      return new Date(date).toLocaleDateString('en-US', {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric'
+      return new Date(date).toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
       });
     };
 
@@ -632,9 +738,11 @@ export default {
       try {
         await api.toggleFavorite(uniqueRoute.value, wish.id);
         wish.isFavorite = !wish.isFavorite;
-        showNotification(wish.isFavorite ? 'Added to favorites' : 'Removed from favorites');
+        showNotification(
+          wish.isFavorite ? "Added to favorites" : "Removed from favorites"
+        );
       } catch (error) {
-        showNotification('Failed to update favorite status');
+        showNotification("Failed to update favorite status");
       }
     };
 
@@ -643,27 +751,40 @@ export default {
     };
 
     const deleteWish = async (wish) => {
-      if (confirm('Are you sure you want to delete this wish?')) {
+      if (confirm("Are you sure you want to delete this wish?")) {
         try {
           await api.deleteWish(uniqueRoute.value, wish.id);
-          wishes.value = wishes.value.filter(w => w.id !== wish.id);
-          showNotification('Wish deleted successfully');
+          wishes.value = wishes.value.filter((w) => w.id !== wish.id);
+          showNotification("Wish deleted successfully");
         } catch (error) {
-          showNotification('Failed to delete wish');
+          showNotification("Failed to delete wish");
         }
       }
     };
 
     const shareToFacebook = () => {
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink.value)}`, '_blank');
+      window.open(
+        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          shareLink.value
+        )}`,
+        "_blank"
+      );
     };
 
     const shareToTwitter = () => {
-      window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareLink.value)}`, '_blank');
+      window.open(
+        `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+          shareLink.value
+        )}`,
+        "_blank"
+      );
     };
 
     const shareToWhatsApp = () => {
-      window.open(`https://wa.me/?text=${encodeURIComponent(shareLink.value)}`, '_blank');
+      window.open(
+        `https://wa.me/?text=${encodeURIComponent(shareLink.value)}`,
+        "_blank"
+      );
     };
 
     const shareToEmail = () => {
@@ -674,16 +795,17 @@ export default {
       let filtered = wishes.value;
 
       // Apply filter
-      if (filter.value === 'favorites') {
-        filtered = filtered.filter(wish => wish.isFavorite);
+      if (filter.value === "favorites") {
+        filtered = filtered.filter((wish) => wish.isFavorite);
       }
 
       // Apply search
       if (searchQuery.value) {
         const query = searchQuery.value.toLowerCase();
-        filtered = filtered.filter(wish => 
-          wish.senderName.toLowerCase().includes(query) ||
-          wish.message.toLowerCase().includes(query)
+        filtered = filtered.filter(
+          (wish) =>
+            wish.senderName.toLowerCase().includes(query) ||
+            wish.message.toLowerCase().includes(query)
         );
       }
 
@@ -694,62 +816,66 @@ export default {
       try {
         const response = await api.getWishes(uniqueRoute.value);
         wishes.value = response.data;
-        console.log(wishes.value)
+        console.log(wishes.value);
       } catch (error) {
-        showNotification('Failed to fetch wishes');
+        showNotification("Failed to fetch wishes");
       }
     };
 
     const updateAccountSettings = async () => {
       try {
         await api.updateUser(currentUser.value.id, {
-          name: currentUser.value.name
+          name: currentUser.value.name,
         });
-        showNotification('Account updated successfully');
+        showNotification("Account updated successfully");
       } catch (error) {
-        showNotification('Failed to update account');
+        showNotification("Failed to update account");
       }
     };
 
     const updateNotificationSettings = async () => {
       try {
         await api.updateSettings(uniqueRoute.value, {
-          notifications: settings.value.notifications
+          notifications: settings.value.notifications,
         });
-        showNotification('Notification preferences saved');
+        showNotification("Notification preferences saved");
       } catch (error) {
-        showNotification('Failed to update notification settings');
+        showNotification("Failed to update notification settings");
       }
     };
 
     const updatePrivacySettings = async () => {
       try {
         await api.updateSettings(uniqueRoute.value, {
-          privacy: settings.value.privacy
+          privacy: settings.value.privacy,
         });
-        showNotification('Privacy settings updated');
+        showNotification("Privacy settings updated");
       } catch (error) {
-        showNotification('Failed to update privacy settings');
+        showNotification("Failed to update privacy settings");
       }
     };
 
     const updatePassword = async () => {
       if (!isPasswordValid.value) return;
-      
+
       try {
         await api.updatePassword(currentUser.value.id, {
           currentPassword: password.value.current,
-          newPassword: password.value.new
+          newPassword: password.value.new,
         });
-        showNotification('Password updated successfully');
-        password.value = { current: '', new: '', confirm: '' };
+        showNotification("Password updated successfully");
+        password.value = { current: "", new: "", confirm: "" };
       } catch (error) {
-        showNotification('Failed to update password');
+        showNotification("Failed to update password");
       }
     };
 
     const confirmDeleteAccount = () => {
-      if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+      if (
+        confirm(
+          "Are you sure you want to delete your account? This action cannot be undone."
+        )
+      ) {
         deleteAccount();
       }
     };
@@ -759,12 +885,16 @@ export default {
         await api.deleteAccount(currentUser.value.id);
         handleLogout();
       } catch (error) {
-        showNotification('Failed to delete account');
+        showNotification("Failed to delete account");
       }
     };
 
     const confirmDeleteWishes = () => {
-      if (confirm('Are you sure you want to delete all wishes? This action cannot be undone.')) {
+      if (
+        confirm(
+          "Are you sure you want to delete all wishes? This action cannot be undone."
+        )
+      ) {
         deleteAllWishes();
       }
     };
@@ -773,9 +903,9 @@ export default {
       try {
         await api.deleteAllWishes(uniqueRoute.value);
         wishes.value = [];
-        showNotification('All wishes deleted successfully');
+        showNotification("All wishes deleted successfully");
       } catch (error) {
-        showNotification('Failed to delete wishes');
+        showNotification("Failed to delete wishes");
       }
     };
 
@@ -783,17 +913,17 @@ export default {
 
     const viewPhoto = (photo) => {
       selectedPhoto.value = photo;
-      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+      document.body.style.overflow = "hidden"; // Prevent scrolling when modal is open
     };
 
     const closeImageViewer = () => {
       selectedPhoto.value = null;
-      document.body.style.overflow = ''; // Restore scrolling
+      document.body.style.overflow = ""; // Restore scrolling
     };
 
     onMounted(async () => {
       if (!currentUser.value || !uniqueRoute.value) {
-        router.push('/');
+        router.push("/");
         return;
       }
       await fetchWishes();
@@ -841,25 +971,25 @@ export default {
       confirmDeleteWishes,
       selectedPhoto,
       viewPhoto,
-      closeImageViewer
+      closeImageViewer,
     };
-  }
+  },
 };
 </script>
 
 <style>
 :root {
-  --primary-color: #FF4D6D;
-  --secondary-color: #7B2CBF;
-  --accent-color: #FFC6D3;
-  --dark-color: #1E1E24;
-  --light-color: #F5F5F5;
-  --success-color: #4CAF50;
-  --warning-color: #FF9800;
-  --danger-color: #F44336;
+  --primary-color: #ff4d6d;
+  --secondary-color: #7b2cbf;
+  --accent-color: #ffc6d3;
+  --dark-color: #1e1e24;
+  --light-color: #f5f5f5;
+  --success-color: #4caf50;
+  --warning-color: #ff9800;
+  --danger-color: #f44336;
   --gray-color: #888;
   --light-gray-color: #eee;
-  --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-main: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 * {
@@ -1030,7 +1160,9 @@ label {
   font-weight: 500;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid var(--light-gray-color);
@@ -1295,13 +1427,21 @@ input[type="color"] {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .theme-preview {
@@ -1350,11 +1490,11 @@ input[type="color"] {
 }
 
 .custom-theme .theme-header {
-  background-color: v-bind('config.primaryColor');
+  background-color: v-bind("config.primaryColor");
 }
 
 .custom-theme .theme-body {
-  background-color: v-bind('config.secondaryColor');
+  background-color: v-bind("config.secondaryColor");
 }
 
 @media (max-width: 1024px) {
@@ -1687,4 +1827,4 @@ input[type="color"] {
 .photo-preview:hover {
   transform: scale(1.02);
 }
-</style> 
+</style>

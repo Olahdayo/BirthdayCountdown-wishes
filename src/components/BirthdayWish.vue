@@ -2,21 +2,25 @@
   <div class="wishes-section">
     <h3 class="mb-4">Leave a Birthday Wish for Esther</h3>
     <div class="mb-3">
-      <input 
-        type="text" 
-        class="form-control message-input mb-2" 
-        v-model="newWish.name" 
+      <input
+        type="text"
+        class="form-control message-input mb-2"
+        v-model="newWish.name"
         placeholder="Your Name"
-      >
-      <textarea 
-        class="form-control message-input" 
-        v-model="newWish.message" 
-        rows="3" 
+      />
+      <textarea
+        class="form-control message-input"
+        v-model="newWish.message"
+        rows="3"
         placeholder="Your Birthday Message"
       ></textarea>
     </div>
-    <button class="btn btn-custom mb-4" @click="addWish" :disabled="isSubmitting">
-      {{ isSubmitting ? 'Submitting...' : 'Add Wish' }}
+    <button
+      class="btn btn-custom mb-4"
+      @click="addWish"
+      :disabled="isSubmitting"
+    >
+      {{ isSubmitting ? "Submitting..." : "Add Wish" }}
     </button>
 
     <div v-if="errorMessage" class="alert alert-danger" role="alert">
@@ -33,71 +37,77 @@
 </template>
 
 <script>
-import { api } from '../services/api'
+import { api } from "../services/api";
 
 export default {
-  name: 'BirthdayWish',
+  name: "BirthdayWish",
   props: {
     wishes: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
+    uniqueRoute: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
       newWish: {
-        name: '',
-        message: ''
+        name: "",
+        message: "",
       },
       isSubmitting: false,
-      errorMessage: ''
-    }
-  },
-  computed: {
-    uniqueRoute() {
-      return localStorage.getItem('uniqueRoute');
-    }
+      errorMessage: "",
+    };
   },
   methods: {
     async addWish() {
       if (!this.newWish.message.trim()) return;
-      if (!this.uniqueRoute) {
-        this.errorMessage = 'Unique route not found. Please refresh the page.';
-        return;
-      }
-      
+
       this.isSubmitting = true;
-      this.errorMessage = '';
-      
+      this.errorMessage = "";
+
       try {
         const wishData = {
-          name: this.newWish.name.trim() || 'Anonymous',
-          message: this.newWish.message.trim()
+          name: this.newWish.name.trim() || "Anonymous",
+          message: this.newWish.message.trim(),
         };
-        
+
         const response = await api.submitWish(this.uniqueRoute, wishData);
-        
-        if (response.success) {
-          this.$emit('add-wish', wishData);
-          this.newWish.name = '';
-          this.newWish.message = '';
+
+        if (response && (response.status === "success" || response.success)) {
+          this.wishes.unshift({
+            name: wishData.name,
+            message: wishData.message,
+            date: new Date().toISOString(),
+          });
+
+          this.newWish.name = "";
+          this.newWish.message = "";
+
+          this.$emit("add-wish", wishData);
         } else {
-          this.errorMessage = 'Failed to submit wish. Please try again.';
-          console.error('Failed to submit wish:', response.message);
+          this.errorMessage =
+            response.message || "Failed to submit wish. Please try again.";
+          console.error("Failed to submit wish:", response);
         }
       } catch (error) {
-        if (error.message === 'Failed to fetch') {
-          this.errorMessage = 'Unable to connect to the server. Please check your internet connection.';
+        if (error.message === "Failed to fetch") {
+          this.errorMessage =
+            "Unable to connect to the server. Please check your internet connection.";
         } else {
-          this.errorMessage = 'An error occurred while submitting your wish. Please try again.';
+          this.errorMessage =
+            error.message ||
+            "An error occurred while submitting your wish. Please try again.";
         }
-        console.error('Error submitting wish:', error);
+        console.error("Error submitting wish:", error);
       } finally {
         this.isSubmitting = false;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -140,4 +150,4 @@ export default {
   margin-bottom: 1rem;
   text-align: center;
 }
-</style> 
+</style>
